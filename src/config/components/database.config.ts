@@ -12,7 +12,7 @@ const envSchema = Joi.object({
   DB_PASSWORD: Joi.string().optional(),
   DB_DATABASE: Joi.string().required(),
   DB_PORT: Joi.number().required(),
-  DB_DIALECT: Joi.string().valid('mysql', 'sqlite').required()
+  DB_DIALECT: Joi.string().valid('mysql', 'sqlite', 'postgres').required()
 });
 
 /**
