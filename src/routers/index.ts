@@ -3,11 +3,11 @@
 import fs from "fs";
 import path from "path";
 import express, { Express, Router } from "express";
-import config from "../config/components/server.config";
-const { detail } = config;
-const routerDefault : Router = express.Router();
+import { serverConfig } from "../config/components/server.config";
+const { detail } = serverConfig;
+const routerDefault: Router = express.Router();
 
-const baseName : string = path.basename(__filename);
+const baseName: string = path.basename(__filename);
 
 function applyRouter(app: Express): void {
   routerDefault.get("/", (_, res) =>
@@ -19,9 +19,9 @@ function applyRouter(app: Express): void {
     .forEach((file) => {
       if (/^v[0-9]+/.test(file)) return;
       if (/.map$/.test(file)) return;
-      const router : Router = express.Router();
-      const apply : any = require(path.join(__dirname, file));
-      const prefix : string = file.split(".")[0];
+      const router: Router = express.Router();
+      const apply: any = require(path.join(__dirname, file));
+      const prefix: string = file.split(".")[0];
       apply.default(router);
       app.use(`/v1/${prefix}`, router);
     });

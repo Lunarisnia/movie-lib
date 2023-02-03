@@ -33,7 +33,7 @@ const sequelizeConfig = {
   dialect: envVars.DB_DIALECT,
 };
 
-export const config = {
+export const databaseConfig = {
   databaseConfig: {
     user: envVars.DB_USER,
     host: envVars.DB_HOST,
