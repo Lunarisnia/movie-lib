@@ -30,10 +30,8 @@ app.listen(PORT, () => {
 
 
 // Todo: Convert sequelize models and db to typescript as well
-// Todo: Validate the joi config for env variables for database (make sure it allow postgres)
-// Todo: Find out how to properly use sequelize with typescript
+// Todo: Find out how to properly use sequelize with typescript (NEXT)
 // Todo: add the graphql as well
-// Todo: Add the postgres driver
-// Todo: Deploy this on Heroku
-// Todo: Establish a CI/CD for autodeploy on heroku
-// Todo: Add unit test method
+// Todo: Add unit test method (NEXT)
+// Todo: Test the Github actions CI
+// Todo: Modify the CI to also include report generated from unit testing
