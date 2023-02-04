@@ -5,6 +5,7 @@ import logger from "morgan";
 import cors from "cors";
 import applyRouter from "./routers";
 import { errHandler } from "./services/error/errorHandler";
+import { serverConfig } from "./config/components/server.config";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, "public")));
 applyRouter(app);
 app.use(errHandler);
 
-const PORT: string = process.env.PORT || "3000";
+const PORT: string = serverConfig.detail.port;
 app.listen(PORT, async () => {
   try {
     await sequelize.authenticate();
@@ -37,6 +38,5 @@ app.listen(PORT, async () => {
   }
 });
 
-// Todo: refactor in more standardized structur for unit test
 // Todo: add Graphql
 // Todo: Start thinking about the relations of the required table
