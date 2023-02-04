@@ -11,7 +11,7 @@ const baseName: string = path.basename(__filename);
 
 function applyRouter(app: Express): void {
   routerDefault.get("/", (_, res) =>
-    res.send({ data: "OKss", version: detail.apiVersion })
+    res.send({ data: "OK", version: detail.apiVersion })
   );
 
   fs.readdirSync(__dirname)
