@@ -11,6 +11,9 @@ dotenv.config();
 // Trigger the joi validation for env variables
 import "./config/index";
 
+// Initialize Sequelize instance
+import { sequelize } from "./db/index";
+
 const app: Express = express();
 
 app.use(logger("dev"));
@@ -24,12 +27,16 @@ applyRouter(app);
 app.use(errHandler);
 
 const PORT: string = process.env.PORT || "3000";
-app.listen(PORT, () => {
-  console.log(`Server is listening on port: ${PORT} 👍`);
+app.listen(PORT, async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connection to database has been established successfully.");
+    console.log(`Server is listening on port: ${PORT} 👍`);
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
 });
 
-// Todo: Convert sequelize models and db to typescript as well
-// Todo: and db to typescript as well
-// Todo: use sequelize with typescript (NEXT)
-// Todo: add the graphql as well
-// Todo: Test the Github actions CI
+// Todo: refactor in more standardized structur for unit test
+// Todo: add Graphql
+// Todo: Start thinking about the relations of the required table

@@ -1,7 +1,5 @@
-"use strict";
+import User from "../../db/models/user.model";
 
-// const { User } = require('../../db/models');
-// Todo: TS ANY
-export default async (): Promise<any> => {
-  return "User.findAll()";
+export default async (): Promise<Array<User>> => {
+  return User.findAll();
 };
