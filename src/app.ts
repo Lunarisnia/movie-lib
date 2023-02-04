@@ -4,12 +4,12 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import cors from "cors";
 import applyRouter from "./routers";
-import { errHandler } from './services/error/errorHandler'; 
-import dotenv from 'dotenv';
+import { errHandler } from "./services/error/errorHandler";
+import dotenv from "dotenv";
 dotenv.config();
 
 // Trigger the joi validation for env variables
-import './config/index';
+import "./config/index";
 
 const app: Express = express();
 
@@ -23,15 +23,13 @@ app.use(express.static(path.join(__dirname, "public")));
 applyRouter(app);
 app.use(errHandler);
 
-const PORT : string = process.env.PORT || '3000';
+const PORT: string = process.env.PORT || "3000";
 app.listen(PORT, () => {
   console.log(`Server is listening on port: ${PORT} 👍`);
 });
 
-
 // Todo: Convert sequelize models and db to typescript as well
-// Todo: Find out how to properly use sequelize with typescript (NEXT)
+// Todo: and db to typescript as well
+// Todo: use sequelize with typescript (NEXT)
 // Todo: add the graphql as well
-// Todo: Add unit test method (NEXT)
 // Todo: Test the Github actions CI
-// Todo: Modify the CI to also include report generated from unit testing
