@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-import Joi from 'joi';
-const { isTest } = require('./server.config');
+import Joi from "joi";
+const { isTest } = require("./server.config");
 
 /**
  * Generate a validation schema using joi to check the type of your environment variables
@@ -12,7 +12,7 @@ const envSchema = Joi.object({
   DB_PASSWORD: Joi.string().optional(),
   DB_DATABASE: Joi.string().required(),
   DB_PORT: Joi.number().required(),
-  DB_DIALECT: Joi.string().valid('mysql', 'sqlite').required()
+  DB_DIALECT: Joi.string().valid("mysql", "sqlite", "postgres").required(),
 });
 
 /**
@@ -33,7 +33,7 @@ const sequelizeConfig = {
   dialect: envVars.DB_DIALECT,
 };
 
-export const config = {
+export const databaseConfig = {
   databaseConfig: {
     user: envVars.DB_USER,
     host: envVars.DB_HOST,
