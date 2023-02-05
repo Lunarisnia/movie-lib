@@ -1,10 +1,12 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import cors from "cors";
 import applyRouter from "./routers";
+import applyGraphql from "./gql/index";
 import { errHandler } from "./services/error/errorHandler";
+import { serverConfig } from "./config/components/server.config";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -24,9 +26,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 applyRouter(app);
+applyGraphql(app);
 app.use(errHandler);
 
-const PORT: string = process.env.PORT || "3000";
+const PORT: string = serverConfig.detail.port;
 app.listen(PORT, async () => {
   try {
     await sequelize.authenticate();
@@ -37,6 +40,5 @@ app.listen(PORT, async () => {
   }
 });
 
-// Todo: refactor in more standardized structur for unit test
-// Todo: add Graphql
 // Todo: Start thinking about the relations of the required table
+// Todo: Add Datetime Scalar to Graphql
