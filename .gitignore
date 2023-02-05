@@ -133,3 +133,6 @@ old/
 
 # Mac Junk
 .DS_Store
+
+# Generated GQL Schema
+/generatedSchemas

@@ -11,6 +11,8 @@ import type { Express, Router } from "express";
 import path from "path";
 import { createYoga } from "graphql-yoga";
 import { YogaServerOptions } from "graphql-yoga/typings/server";
+import { serverConfig } from "../../src/config/components/server.config";
+import dayjs from "dayjs";
 const routerDefault: Router = express.Router();
 
 const baseName: string = path.basename(__filename);
@@ -38,6 +40,16 @@ query Welcome {
 }
 `;
 
+const generateSchemaFileName = () => {
+  const basePath = path.join(__dirname, "..", "..");
+  const schemasPath = path.join(basePath, "generatedSchemas");
+  if (!fs.existsSync(schemasPath)) fs.mkdirSync(schemasPath);
+  return path.join(
+    schemasPath,
+    `${dayjs().format("DD-MM-YYYY-hhmmss")}-schema.gql`
+  );
+};
+
 const applyGraphql = (app: Express) => {
   const _resolvers = fs
     .readdirSync(path.join(__dirname, "resolvers"))
@@ -48,7 +60,9 @@ const applyGraphql = (app: Express) => {
   const resolvers = [HomeResolver, ..._resolvers] as const;
   const schema = buildSchemaSync({
     resolvers: resolvers,
-    emitSchemaFile: true,
+    emitSchemaFile: serverConfig.emitGqlSchema
+      ? generateSchemaFileName()
+      : false,
   });
 
   const yogaConfig: YogaServerOptions<{}, {}> = {
