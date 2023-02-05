@@ -4,7 +4,7 @@ import { User } from "../schemas/user.schema";
 
 @Resolver(User)
 export class UserResolver {
-  @Query((of) => [User])
+  @Query((of) => [User], { description: "Fetch all users." })
   async getUsers(): Promise<User[]> {
     const users = await fetchAllUsers();
 

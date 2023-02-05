@@ -1,13 +1,13 @@
 import { Field, ObjectType } from "type-graphql";
 
-@ObjectType()
+@ObjectType({ description: "Object representing the user." })
 export class User {
-  @Field()
+  @Field({ description: "ID of the user." })
   id?: number;
-  @Field()
+  @Field({ description: "Name of the user." })
   name?: string;
-  @Field()
+  @Field({ description: "When the user is created." })
   createdAt?: Date;
-  @Field()
+  @Field({ description: "When the user is last updated." })
   updatedAt?: Date;
 }
