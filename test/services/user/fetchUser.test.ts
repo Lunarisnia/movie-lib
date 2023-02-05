@@ -4,6 +4,7 @@ import User from "../../../src/db/models/user.model";
 
 beforeEach(() => {
   jest.resetAllMocks();
+  jest.mock("../../../src/db/models/user.model");
 });
 
 describe("Given an id of the user", () => {

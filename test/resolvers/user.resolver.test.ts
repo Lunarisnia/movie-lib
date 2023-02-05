@@ -8,6 +8,7 @@ import mutation from "../../src/gql/user/resolvers/mutation";
 
 beforeEach(() => {
   jest.resetAllMocks();
+  jest.mock("../../src/db/models/user.model");
 });
 
 const schema = createSchema({
