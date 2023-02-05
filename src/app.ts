@@ -1,5 +1,4 @@
-import "reflect-metadata";
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
@@ -41,5 +40,5 @@ app.listen(PORT, async () => {
   }
 });
 
-// Todo: add Graphql
 // Todo: Start thinking about the relations of the required table
+// Todo: Add Datetime Scalar to Graphql
