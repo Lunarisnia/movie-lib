@@ -3,6 +3,7 @@ import fetchAllUsers from "../../src/services/user/fetchAllUsers";
 import { request, response } from "express";
 beforeEach(() => {
   jest.resetAllMocks();
+  jest.mock("../../src/db/models/user.model");
 });
 
 jest.mock("../../src/services/user/fetchAllUsers");
