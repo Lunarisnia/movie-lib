@@ -23,8 +23,7 @@
     "dist"
   ],
   "include": [
-    "src/**/*.ts",
-    "test/**/*.test.ts"
+    "src/**/*.ts"
   ],
   "files": [
     "src/app.ts"
