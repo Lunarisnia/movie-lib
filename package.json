@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/Lunarisnia/movie-lib#readme",
   "dependencies": {
+    "@graphql-tools/executor-http": "^0.1.4",
     "class-validator": "^0.14.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",

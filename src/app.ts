@@ -1,9 +1,11 @@
+import "reflect-metadata";
 import express, { Express, Request, Response } from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import cors from "cors";
 import applyRouter from "./routers";
+import applyGraphql from "./gql/index";
 import { errHandler } from "./services/error/errorHandler";
 import { serverConfig } from "./config/components/server.config";
 import dotenv from "dotenv";
@@ -25,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 applyRouter(app);
+applyGraphql(app);
 app.use(errHandler);
 
 const PORT: string = serverConfig.detail.port;
