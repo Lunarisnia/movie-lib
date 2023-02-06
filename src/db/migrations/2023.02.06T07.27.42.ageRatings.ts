@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import type { Migration } from "../index";
 
-const TABLE_NAME = "tableName";
+const TABLE_NAME = "ageRatings";
 
 export const up: Migration = async ({ context: sequelize }) => {
   await sequelize.getQueryInterface().createTable(TABLE_NAME, {
@@ -14,6 +14,14 @@ export const up: Migration = async ({ context: sequelize }) => {
       primaryKey: true,
       autoIncrement: true,
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    abbreviation: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: new Date(),
@@ -21,6 +29,10 @@ export const up: Migration = async ({ context: sequelize }) => {
     updatedAt: {
       type: DataTypes.DATE,
       defaultValue: new Date(),
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+      defaultValue: null,
     },
   });
 };

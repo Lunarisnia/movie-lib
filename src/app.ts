@@ -41,4 +41,5 @@ app.listen(PORT, async () => {
 });
 
 // Todo: Start thinking about the relations of the required table
-// Todo: Add Datetime Scalar to Graphql
+// Todo: write documentation for the api
+// Todo: Do unit tests

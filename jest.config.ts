@@ -5,6 +5,7 @@ export const config: Config = {
   coveragePathIgnorePatterns: [
     "src/db/migrations",
     "src/db/seeders",
+    "src/db/models",
     "src/db/template",
     "src/config",
     "src/db/index.ts",

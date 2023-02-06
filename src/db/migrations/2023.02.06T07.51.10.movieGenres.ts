@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import type { Migration } from "../index";
 
-const TABLE_NAME = "tableName";
+const TABLE_NAME = "movieGenres";
 
 export const up: Migration = async ({ context: sequelize }) => {
   await sequelize.getQueryInterface().createTable(TABLE_NAME, {
@@ -13,6 +13,15 @@ export const up: Migration = async ({ context: sequelize }) => {
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+    },
+    // Todo: Add Slug to movie
+    movieId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    genreId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     createdAt: {
       type: DataTypes.DATE,
