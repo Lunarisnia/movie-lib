@@ -5,6 +5,7 @@ import User from "../../src/db/models/user.model";
 import userType from "../../src/gql/user/user.type";
 import query from "../../src/gql/user/resolvers/query";
 import mutation from "../../src/gql/user/resolvers/mutation";
+import { typeDefs as scalarTypeDefs } from 'graphql-scalars';
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -12,7 +13,7 @@ beforeEach(() => {
 });
 
 const schema = createSchema({
-  typeDefs: userType,
+  typeDefs: [scalarTypeDefs, userType],
   resolvers: {
     Query: query.Query,
     Mutation: mutation.Mutation,
