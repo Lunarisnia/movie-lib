@@ -2,8 +2,8 @@ export default /* GraphQL */ `
   type User {
     id: ID!
     name: String
-    createdAt: String
-    updatedAt: String
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 
   input AddUserInput {
