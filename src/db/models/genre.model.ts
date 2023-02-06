@@ -18,11 +18,4 @@ export default class Genre extends Model {
 
   @BelongsToMany(() => Movie, () => MovieGenre)
   movies!: Array<Movie & { MovieGenre: MovieGenre }>;
-
-  @Column
-  createdAt?: Date;
-  @Column
-  updatedAt?: Date;
-  @Column
-  deletedAt?: Date;
 }

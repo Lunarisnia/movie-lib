@@ -14,7 +14,6 @@ export const up: Migration = async ({ context: sequelize }) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    // Todo: Add Slug to movie
     movieId: {
       type: DataTypes.INTEGER,
       allowNull: false,

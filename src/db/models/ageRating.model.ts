@@ -1,10 +1,4 @@
-import {
-  Model,
-  Table,
-  Column,
-  BelongsToMany,
-  HasMany,
-} from "sequelize-typescript";
+import { Model, Table, Column, HasMany } from "sequelize-typescript";
 import Movie from "./movie.model";
 
 @Table({
@@ -26,11 +20,4 @@ export default class AgeRating extends Model {
 
   @HasMany(() => Movie)
   movies!: Movie[];
-
-  @Column
-  createdAt?: Date;
-  @Column
-  updatedAt?: Date;
-  @Column
-  deletedAt?: Date;
 }
