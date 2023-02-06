@@ -29,9 +29,11 @@
   },
   "homepage": "https://github.com/Lunarisnia/movie-lib#readme",
   "dependencies": {
+    "@escape.tech/graphql-armor-block-field-suggestions": "^1.4.0",
     "@graphql-tools/executor-http": "^0.1.4",
     "@graphql-tools/load-files": "^6.6.1",
     "@graphql-tools/schema": "^9.0.15",
+    "@graphql-yoga/plugin-disable-introspection": "^0.4.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
