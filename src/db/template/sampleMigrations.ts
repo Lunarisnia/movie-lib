@@ -12,6 +12,15 @@ export const up: Migration = async ({ context: sequelize }) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
     },
   });
 };
