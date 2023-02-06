@@ -1,6 +1,4 @@
 export default /* GraphQL */ `
-  scalar DateTime
-
   """
   A simple greeting.
   """
