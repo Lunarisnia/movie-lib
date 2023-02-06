@@ -10,6 +10,7 @@ export default /* GraphQL */ `
     genres: [Genre]
     ageRating: AgeRating
     actors: [Actor]
+    authors: [Author]
   }
 
   input MoviesInput {

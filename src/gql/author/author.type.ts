@@ -1,5 +1,5 @@
 export default /* GraphQL */ `
-  type Actor {
+  type Author {
     id: ID!
     name: String
     gender: Gender

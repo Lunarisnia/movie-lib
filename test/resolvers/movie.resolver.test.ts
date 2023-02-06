@@ -1,34 +1,14 @@
-import { createSchema, createYoga } from "graphql-yoga";
+import { createYoga } from "graphql-yoga";
 import { buildHTTPExecutor } from "@graphql-tools/executor-http";
 import { parse } from "graphql/language";
-import movieType from "../../src/gql/movie/movie.type";
-import ageRatingType from "../../src/gql/ageRating/ageRating.type";
-import genreType from "../../src/gql/genre/genre.type";
-import actorType from "../../src/gql/actor/actor.type";
-import genderType from "../../src/gql/gender/gender.type";
-import movieQuery from "../../src/gql/movie/resolvers/movie.query";
 import slugify from "../../src/services/utils/slugify";
+import { schema } from '../../src/gql/schema';
 
-import { typeDefs as scalarTypeDefs } from "graphql-scalars";
 import Movie from "../../src/db/models/movie.model";
 
 beforeEach(() => {
   jest.resetAllMocks();
   jest.mock("../../src/db/models/movie.model");
-});
-
-const schema = createSchema({
-  typeDefs: [
-    scalarTypeDefs,
-    movieType,
-    ageRatingType,
-    genreType,
-    actorType,
-    genderType,
-  ],
-  resolvers: {
-    Query: movieQuery.Query,
-  },
 });
 
 const yoga = createYoga({ schema });

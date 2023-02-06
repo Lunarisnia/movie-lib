@@ -4,7 +4,6 @@ import {
   Column,
   IsFloat,
   BelongsToMany,
-  HasOne,
   BelongsTo,
   ForeignKey,
   Max,
@@ -13,8 +12,10 @@ import {
 } from "sequelize-typescript";
 import Actor from "./actor.model";
 import AgeRating from "./ageRating.model";
+import Author from "./author.model";
 import Genre from "./genre.model";
 import MovieActor from "./movieActor.model";
+import MovieAuthor from "./movieAuthor.model";
 import MovieGenre from "./movieGenre.model";
 
 @Table({
@@ -62,4 +63,7 @@ export default class Movie extends Model {
 
   @BelongsToMany(() => Actor, () => MovieActor)
   actors!: Array<Actor & { MovieActor: MovieActor }>;
+
+  @BelongsToMany(() => Author, () => MovieAuthor)
+  authors!: Array<Author & { MovieActor: MovieAuthor }>;
 }
