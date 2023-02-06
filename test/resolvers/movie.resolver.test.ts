@@ -4,6 +4,8 @@ import { parse } from "graphql/language";
 import movieType from "../../src/gql/movie/movie.type";
 import ageRatingType from "../../src/gql/ageRating/ageRating.type";
 import genreType from "../../src/gql/genre/genre.type";
+import actorType from "../../src/gql/actor/actor.type";
+import genderType from "../../src/gql/gender/gender.type";
 import movieQuery from "../../src/gql/movie/resolvers/movie.query";
 import slugify from "../../src/services/utils/slugify";
 
@@ -16,7 +18,14 @@ beforeEach(() => {
 });
 
 const schema = createSchema({
-  typeDefs: [scalarTypeDefs, movieType, ageRatingType, genreType],
+  typeDefs: [
+    scalarTypeDefs,
+    movieType,
+    ageRatingType,
+    genreType,
+    actorType,
+    genderType,
+  ],
   resolvers: {
     Query: movieQuery.Query,
   },
@@ -51,7 +60,9 @@ const mockMovie = {
 
 describe("Given a query that can return a list of movies", () => {
   it("Returns a list of every movies", async () => {
-    Movie.findAll = jest.fn().mockReturnValue([mockMovie, mockMovie, mockMovie])
+    Movie.findAll = jest
+      .fn()
+      .mockReturnValue([mockMovie, mockMovie, mockMovie]);
     const movies = await executor({
       document: parse(/* GraphQL */ `
         query MyMovies {
@@ -75,8 +86,8 @@ describe("Given a query that can return a list of movies", () => {
     });
 
     expect(Movie.findAll).toBeCalledTimes(1);
-    expect(movies).toHaveProperty('data.movies[0].title', "The Matrix");
-    expect(movies).toHaveProperty('data.movies[0].ageRating.abbreviation', "G");
-    expect(movies).toHaveProperty('data.movies[0].genres[0].name', "Action");
+    expect(movies).toHaveProperty("data.movies[0].title", "The Matrix");
+    expect(movies).toHaveProperty("data.movies[0].ageRating.abbreviation", "G");
+    expect(movies).toHaveProperty("data.movies[0].genres[0].name", "Action");
   });
 });

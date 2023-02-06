@@ -43,12 +43,12 @@ const movieGenreSeed: MovieGenre[] = [
     genreId: 1,
   }),
   new MovieGenre({
-    id: 2,
+    id: 3,
     movieId: 2,
     genreId: 2,
   }),
   new MovieGenre({
-    id: 2,
+    id: 4,
     movieId: 2,
     genreId: 3,
   }),
