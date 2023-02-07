@@ -18,7 +18,7 @@ export default /* GraphQL */ `
     id: ID!
   }
 
-  input MovieInput {
+  input AddMovieInput {
     title: String!
     durationInMinutes: Int!
     posterImageUrl: String!
@@ -32,9 +32,10 @@ export default /* GraphQL */ `
   }
 
   type Query {
-    movies: [Movie]!
+    movie(id: ID!): Movie
+    movies: [Movie]
   }
   type Mutation {
-    addMovie(params: MovieInput): Movie
+    addMovie(params: AddMovieInput): Movie
   }
 `;

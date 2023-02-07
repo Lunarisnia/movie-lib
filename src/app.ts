@@ -45,7 +45,7 @@ app.listen(PORT, async () => {
  * Movie:
  *  - Fetch All movie (Done) > Maybe add search by param x
  *  - Add Movie (Done)
- *  - Fetch One Movie
+ *  - Fetch One Movie (Done)
  *  - Update Movie
  *  - Delete Movie
  * Author:

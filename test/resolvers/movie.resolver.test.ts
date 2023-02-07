@@ -54,6 +54,24 @@ const mockMovie = {
   updatedAt: new Date(),
 };
 
+describe("Given a query that can return a movie", () => {
+  it("Return a movie", async () => {
+    Movie.findByPk = jest.fn().mockReturnValue(mockMovie);
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        query MyMovie {
+          movie(id: "1") {
+            id
+            title
+          }
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty("data.movie.title", "The Matrix");
+  });
+});
+
 describe("Given a query that can return a list of movies", () => {
   it("Returns a list of every movies", async () => {
     Movie.findAndCountAll = jest
@@ -180,7 +198,7 @@ describe("Given a query that can return a list of movies", () => {
         `),
       });
     } catch (error: any) {
-      expect(typeof error).toEqual("GraphQLError")
+      expect(typeof error).toEqual("GraphQLError");
     }
   });
 });
