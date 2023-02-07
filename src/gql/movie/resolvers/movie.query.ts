@@ -5,7 +5,8 @@ import Movie from "../../../db/models/movie.model";
 const movies: GraphQLFieldResolver<any, any, any, any> = async (
   _
 ): Promise<Movie[]> => {
-  return await fetchAllMovies();
+  const movies = await fetchAllMovies();
+  return movies.rows;
 };
 
 export default {
