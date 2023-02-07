@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import type { Migration } from "../index";
 
-const TABLE_NAME = "movieGenres";
+const TABLE_NAME = "actors";
 
 export const up: Migration = async ({ context: sequelize }) => {
   await sequelize.getQueryInterface().createTable(TABLE_NAME, {
@@ -14,13 +14,17 @@ export const up: Migration = async ({ context: sequelize }) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    movieId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
-    genreId: {
+    genderId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+    },
+    photoUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -29,6 +33,9 @@ export const up: Migration = async ({ context: sequelize }) => {
     updatedAt: {
       type: DataTypes.DATE,
       defaultValue: new Date(),
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
     },
   });
 };

@@ -1,11 +1,11 @@
 import { Model, Table, Column, HasMany } from "sequelize-typescript";
-import Movie from "./movie.model";
+import Actor from "./actor.model";
 
 @Table({
-  tableName: "ageRatings",
+  tableName: "genders",
   paranoid: true,
 })
-export default class AgeRating extends Model {
+export default class Gender extends Model {
   @Column({
     primaryKey: true,
     autoIncrement: true,
@@ -15,9 +15,6 @@ export default class AgeRating extends Model {
   @Column
   name!: string;
 
-  @Column
-  abbreviation!: string;
-
-  @HasMany(() => Movie)
-  movies!: Movie[];
+  @HasMany(() => Actor)
+  actors!: Actor[];
 }

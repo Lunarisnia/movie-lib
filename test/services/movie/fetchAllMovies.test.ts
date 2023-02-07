@@ -21,11 +21,12 @@ describe("Given a function that return a list of every movies", () => {
     updatedAt: new Date(),
   };
   it("Returns every movies successfully.", async () => {
-    Movie.findAll = jest.fn().mockReturnValue([mockMovie, mockMovie, mockMovie]);
+    const mockReturns = [mockMovie, mockMovie, mockMovie];
+    Movie.findAndCountAll = jest.fn().mockReturnValue({rows: mockReturns, count: mockReturns.length});
     const movies = await fetchAllMovies();
 
-    expect(movies).toHaveLength(3);
-    expect(movies[0].title).toEqual("The Matrix");
-    expect(Movie.findAll).toBeCalled();
+    expect(movies.count).toEqual(3);
+    expect(movies.rows[0].title).toEqual("The Matrix");
+    expect(Movie.findAndCountAll).toBeCalled();
   });
 });

@@ -40,6 +40,31 @@ app.listen(PORT, async () => {
   }
 });
 
-// Todo: Start thinking about the relations of the required table
+/**
+ * Progress:
+ * Movie:
+ *  - Fetch All movie (Done) > Maybe add search by param x
+ *  - Add Movie (Done)
+ *  - Fetch One Movie
+ *  - Update Movie
+ *  - Delete Movie
+ * Author:
+ *  - Fetch All Author
+ *  - Add Author
+ *  - Fetch One Author
+ *  - Update Author
+ *  - Delete Author
+ * Actor:
+ *  - Fetch All Actor
+ *  - Add Actor
+ *  - Fetch One Actor
+ *  - Update Actor
+ *  - Delete Actor
+ */
+
+// Todo: Finish the CRUD of every table important table (Movie, Author, Actor)
+// Todo: Currently detailed read is only available for Movie, make it available everywhere
+// Todo: Crud for those 3 schema
 // Todo: write documentation for the api
+// Todo: Add pagination
 // Todo: Do unit tests
