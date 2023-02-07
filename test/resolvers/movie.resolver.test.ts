@@ -54,6 +54,52 @@ const mockMovie = {
   updatedAt: new Date(),
 };
 
+describe("Given a query that can update a movie", () => {
+  it("Update a movie", async () => {
+    Movie.update = jest.fn().mockReturnValue([1]);
+    Movie.findByPk = jest.fn().mockReturnValue({
+      ...mockMovie,
+      title: "The Foobar"
+    });
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        mutation MyUpdatedMovie {
+          updateMovie(id: "1", update: {
+            title: "The Foobar"
+          }) {
+            id
+            title
+          }
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty("data.updateMovie.title", "The Foobar");
+  });
+  it("Throws an ", async () => {
+    Movie.update = jest.fn().mockReturnValue([0]);
+    Movie.findByPk = jest.fn().mockReturnValue({
+      ...mockMovie,
+      title: "The Foobar"
+    });
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          mutation MyUpdatedMovie {
+            updateMovie(id: "1", update: {
+              title: "The Foobar"
+            }) {
+              id
+              title
+            }
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError")
+    }
+  });
+});
 describe("Given a query that can return a movie", () => {
   it("Return a movie", async () => {
     Movie.findByPk = jest.fn().mockReturnValue(mockMovie);

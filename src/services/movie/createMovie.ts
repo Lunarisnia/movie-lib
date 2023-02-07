@@ -12,9 +12,54 @@ import searchAuthors from "../author/searchAuthors";
 import MovieActor from "../../db/models/movieActor.model";
 import MovieAuthor from "../../db/models/movieAuthor.model";
 
-interface InputID {
+export interface InputID {
   id: string;
 }
+
+export const checkAgeRatingExist = async (ageRating: InputID) => {
+  // Check if age rating exist
+  const doesAgeRatingExist = await fetchAgeRating(ageRating.id);
+  if (!doesAgeRatingExist)
+    throw new ResourceNotFoundError("Invalid Age Rating ID.");
+};
+
+export const checkGenresExist = async (genres: string[]) => {
+  // Check if every genres exist
+  const doesEveryGenresExist = await searchGenres(genres);
+  if (doesEveryGenresExist.count !== genres.length)
+    throw new ResourceNotFoundError("One or more Genre ID is invalid.");
+};
+
+export const checkActorsExist = async (actors: string[]) => {
+  // Check if every actors exist
+  const doesEveryActorsExist = await searchActors(actors);
+  if (doesEveryActorsExist.count !== actors.length)
+    throw new ResourceNotFoundError("One or more Actor ID is invalid.");
+};
+
+export const checkAuthorsExist = async (authors: string[]) => {
+  // Check if every authors exist
+  const doesEveryAuthorsExist = await searchAuthors(authors);
+  if (doesEveryAuthorsExist.count !== authors.length)
+    throw new ResourceNotFoundError("One or more Author ID is invalid.");
+};
+
+export const movieDataValidations = async ({
+  ageRating,
+  genres,
+  actors,
+  authors,
+}: {
+  ageRating: InputID;
+  genres: string[];
+  actors: string[];
+  authors: string[];
+}) => {
+  await checkAgeRatingExist(ageRating);
+  await checkGenresExist(genres);
+  await checkActorsExist(actors);
+  await checkAuthorsExist(authors);
+};
 
 interface CreateMovie {
   title: string;
@@ -41,28 +86,15 @@ export default async ({
   posterImageUrl,
   durationInMinutes,
 }: CreateMovie): Promise<Movie | null> => {
-  // Check if age rating exist
-  const doesAgeRatingExist = await fetchAgeRating(ageRating.id);
-  if (!doesAgeRatingExist)
-    throw new ResourceNotFoundError("Invalid Age Rating ID.");
-
-  // Check if every genres exist
   const genresFiltered = onlyUnique(genres.map((v) => v.id));
-  const doesEveryGenresExist = await searchGenres(genresFiltered);
-  if (doesEveryGenresExist.count !== genresFiltered.length)
-    throw new ResourceNotFoundError("One or more Genre ID is invalid.");
-
-  // Check if every actors exist
   const actorsFiltered = onlyUnique(actors.map((v) => v.id));
-  const doesEveryActorsExist = await searchActors(actorsFiltered);
-  if (doesEveryActorsExist.count !== actorsFiltered.length)
-    throw new ResourceNotFoundError("One or more Movie ID is invalid.");
-
-  // Check if every authors exist
   const authorsFiltered = onlyUnique(authors.map((v) => v.id));
-  const doesEveryAuthorsExist = await searchAuthors(authorsFiltered);
-  if (doesEveryAuthorsExist.count !== authorsFiltered.length)
-    throw new ResourceNotFoundError("One or more Author ID is invalid.");
+  await movieDataValidations({
+    actors: actorsFiltered,
+    ageRating,
+    authors: authorsFiltered,
+    genres: genresFiltered,
+  });
 
   // Create the movie
   const movie = await Movie.create({

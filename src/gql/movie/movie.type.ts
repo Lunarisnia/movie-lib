@@ -31,11 +31,33 @@ export default /* GraphQL */ `
     authors: [InputID!]!
   }
 
+  input UpdateMovieInput {
+    title: String
+    rating: Float
+    durationInMinutes: Int
+    posterImageUrl: String
+    synopsis: String
+    releaseDate: Date
+    ageRating: InputID
+  }
+
+  input DeleteMovieInput {
+    title: String
+    rating: Float
+    durationInMinutes: Int
+    posterImageUrl: String
+    synopsis: String
+    releaseDate: Date
+    ageRating: InputID
+  }
+
   type Query {
     movie(id: ID!): Movie
     movies: [Movie]
   }
   type Mutation {
     addMovie(params: AddMovieInput): Movie
+    updateMovie(id: ID!, update: UpdateMovieInput!): Movie
+    deleteMovie(params: DeleteMovieInput): String
   }
 `;
