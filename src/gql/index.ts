@@ -17,10 +17,7 @@ const defaultQuery = /* GraphQL */ `
 `;
 
 const applyGraphql = async (app: Express) => {
-  const securityPlugins = [
-    blockFieldSuggestionsPlugin(),
-    useDisableIntrospection(),
-  ];
+  const securityPlugins = [blockFieldSuggestionsPlugin()];
   const yogaConfig: YogaServerOptions<{}, {}> = {
     schema: schema,
     graphiql: {
