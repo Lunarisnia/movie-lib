@@ -1,27 +1,12 @@
 import modifyMovie from "../../../src/services/movie/modifyMovie";
 
-import Actor from "../../../src/db/models/actor.model";
 import AgeRating from "../../../src/db/models/ageRating.model";
-import Author from "../../../src/db/models/author.model";
-import Genre from "../../../src/db/models/genre.model";
 import Movie from "../../../src/db/models/movie.model";
-import MovieActor from "../../../src/db/models/movieActor.model";
-import MovieAuthor from "../../../src/db/models/movieAuthor.model";
-import MovieGenre from "../../../src/db/models/movieGenre.model";
-import dayjs from "dayjs";
-import slugify from "../../../src/services/utils/slugify";
 
 beforeEach(() => {
   jest.resetAllMocks();
-  jest.mock("../../../src/db/models/actor.model");
   jest.mock("../../../src/db/models/ageRating.model");
-  jest.mock("../../../src/db/models/author.model");
-  jest.mock("../../../src/db/models/gender.model");
-  jest.mock("../../../src/db/models/genre.model");
   jest.mock("../../../src/db/models/movie.model");
-  jest.mock("../../../src/db/models/movieActor.model");
-  jest.mock("../../../src/db/models/movieAuthor.model");
-  jest.mock("../../../src/db/models/movieGenre.model");
 });
 
 describe("Given a function that can modify movie entry", () => {

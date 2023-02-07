@@ -54,19 +54,49 @@ const mockMovie = {
   updatedAt: new Date(),
 };
 
+describe("Given a query that can delete a movie", () => {
+  it("Return the deletion result", async () => {
+    Movie.destroy = jest.fn().mockReturnValue(1);
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        mutation MyDeletedMovie {
+          deleteMovie(id: "1")
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty(
+      "data.deleteMovie",
+      "Success. Amount of data affected: 1"
+    );
+  });
+  it("Handle the error", async () => {
+    Movie.destroy = jest.fn().mockRejectedValue(new Error("Internal"));
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          mutation MyDeletedMovie {
+            deleteMovie(id: "1")
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError");
+    }
+  });
+});
+
 describe("Given a query that can update a movie", () => {
   it("Update a movie", async () => {
     Movie.update = jest.fn().mockReturnValue([1]);
     Movie.findByPk = jest.fn().mockReturnValue({
       ...mockMovie,
-      title: "The Foobar"
+      title: "The Foobar",
     });
     const movie = await executor({
       document: parse(/* GraphQL */ `
         mutation MyUpdatedMovie {
-          updateMovie(id: "1", update: {
-            title: "The Foobar"
-          }) {
+          updateMovie(id: "1", update: { title: "The Foobar" }) {
             id
             title
           }
@@ -80,15 +110,13 @@ describe("Given a query that can update a movie", () => {
     Movie.update = jest.fn().mockReturnValue([0]);
     Movie.findByPk = jest.fn().mockReturnValue({
       ...mockMovie,
-      title: "The Foobar"
+      title: "The Foobar",
     });
     try {
       await executor({
         document: parse(/* GraphQL */ `
           mutation MyUpdatedMovie {
-            updateMovie(id: "1", update: {
-              title: "The Foobar"
-            }) {
+            updateMovie(id: "1", update: { title: "The Foobar" }) {
               id
               title
             }
@@ -96,7 +124,7 @@ describe("Given a query that can update a movie", () => {
         `),
       });
     } catch (error: any) {
-      expect(error.name).toEqual("GraphQLError")
+      expect(error.name).toEqual("GraphQLError");
     }
   });
 });
