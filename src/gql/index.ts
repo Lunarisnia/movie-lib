@@ -9,8 +9,8 @@ import { serverConfig } from "../config/components/server.config";
 const routerDefault: Router = express.Router();
 
 const defaultQuery = /* GraphQL */ `
-  query Welcome {
-    home {
+  query Hi {
+    weclome {
       message
     }
   }
