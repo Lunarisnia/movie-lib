@@ -106,7 +106,7 @@ describe("Given a query that can update a movie", () => {
 
     expect(movie).toHaveProperty("data.updateMovie.title", "The Foobar");
   });
-  it("Throws an ", async () => {
+  it("Throws a GraphQLError", async () => {
     Movie.update = jest.fn().mockReturnValue([0]);
     Movie.findByPk = jest.fn().mockReturnValue({
       ...mockMovie,
@@ -128,6 +128,10 @@ describe("Given a query that can update a movie", () => {
     }
   });
 });
+
+/**
+ * QUERY
+ */
 describe("Given a query that can return a movie", () => {
   it("Return a movie", async () => {
     Movie.findByPk = jest.fn().mockReturnValue(mockMovie);
@@ -143,6 +147,23 @@ describe("Given a query that can return a movie", () => {
     });
 
     expect(movie).toHaveProperty("data.movie.title", "The Matrix");
+  });
+  it("Throws a GraphQLError", async () => {
+    Movie.findByPk = jest.fn().mockRejectedValue(new Error("error"));
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          query MyMovie {
+            movie(id: "1") {
+              id
+              title
+            }
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError");
+    }
   });
 });
 
@@ -177,6 +198,34 @@ describe("Given a query that can return a list of movies", () => {
     expect(movies).toHaveProperty("data.movies[0].title", "The Matrix");
     expect(movies).toHaveProperty("data.movies[0].ageRating.abbreviation", "G");
     expect(movies).toHaveProperty("data.movies[0].genres[0].name", "Action");
+  });
+  it("Throws a GraphQLError for the query", async () => {
+    Movie.findAndCountAll = jest.fn().mockRejectedValue(new Error("error"));
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          query MyMovies {
+            movies {
+              id
+              title
+              slug
+              durationInMinutes
+              posterImageUrl
+              synopsis
+              ageRating {
+                name
+                abbreviation
+              }
+              genres {
+                name
+              }
+            }
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError");
+    }
   });
   it("Create and return a new movie", async () => {
     Actor.findByPk = jest.fn().mockReturnValue({ id: "1" });

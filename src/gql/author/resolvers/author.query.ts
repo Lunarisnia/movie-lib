@@ -17,8 +17,12 @@ const author: GraphQLFieldResolver<any, any, any, any> = async (
   _,
   { id }
 ): Promise<Author | null> => {
-  const author = await fetchAuthor(id, true);
-  return author;
+  try {
+    const author = await fetchAuthor(id, true);
+    return author;
+  } catch (error: any) {
+    throw new GraphQLError(error.message);
+  }
 };
 
 export default {

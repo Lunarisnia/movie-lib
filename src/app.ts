@@ -49,20 +49,25 @@ app.listen(PORT, async () => {
  *  - Update Movie (Done)
  *  - Delete Movie (Done)
  *  - Unit Test (DONE)
+ *  - addActorToMovie
+ *  - addAuthorToMovie
+ *  - Documentation
  * Author:
  *  - Fetch All Author (DONE)
  *  - Fetch One Author (DONE)
  *  - Add Author (DONE)
  *  - Update Author (DONE)
  *  - Delete Author (DONE)
- *  - Unit Test
+ *  - Unit Test (DONE)
+ *  - Documentation
  * Actor:
- *  - Fetch All Actor
- *  - Add Actor
- *  - Fetch One Actor
- *  - Update Actor
- *  - Delete Actor
- *  - Unit Test
+ *  - Fetch All Actor (DONE)
+ *  - Add Actor (DONE)
+ *  - Fetch One Actor (DONE)
+ *  - Update Actor (DONE)
+ *  - Delete Actor (DONE)
+ *  - Unit Test (DONE)
+ *  - Documentation
  */
 
 // Todo: Finish the CRUD of every table important table (Movie, Author, Actor)
