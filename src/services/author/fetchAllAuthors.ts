@@ -24,7 +24,7 @@ export default async (
   rows: Author[];
   count: number;
 }> => {
-  let finalQuery = generateQuery(
+  const finalQuery = generateQuery(
     query,
     authorRelationOptions,
     includeRelations
