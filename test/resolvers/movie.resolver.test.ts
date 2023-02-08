@@ -54,6 +54,119 @@ const mockMovie = {
   updatedAt: new Date(),
 };
 
+describe("Given a query that can delete a movie", () => {
+  it("Return the deletion result", async () => {
+    Movie.destroy = jest.fn().mockReturnValue(1);
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        mutation MyDeletedMovie {
+          deleteMovie(id: "1")
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty(
+      "data.deleteMovie",
+      "Success. Amount of data affected: 1"
+    );
+  });
+  it("Handle the error", async () => {
+    Movie.destroy = jest.fn().mockRejectedValue(new Error("Internal"));
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          mutation MyDeletedMovie {
+            deleteMovie(id: "1")
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError");
+    }
+  });
+});
+
+describe("Given a query that can update a movie", () => {
+  it("Update a movie", async () => {
+    Movie.update = jest.fn().mockReturnValue([1]);
+    Movie.findByPk = jest.fn().mockReturnValue({
+      ...mockMovie,
+      title: "The Foobar",
+    });
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        mutation MyUpdatedMovie {
+          updateMovie(id: "1", update: { title: "The Foobar" }) {
+            id
+            title
+          }
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty("data.updateMovie.title", "The Foobar");
+  });
+  it("Throws a GraphQLError", async () => {
+    Movie.update = jest.fn().mockReturnValue([0]);
+    Movie.findByPk = jest.fn().mockReturnValue({
+      ...mockMovie,
+      title: "The Foobar",
+    });
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          mutation MyUpdatedMovie {
+            updateMovie(id: "1", update: { title: "The Foobar" }) {
+              id
+              title
+            }
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError");
+    }
+  });
+});
+
+/**
+ * QUERY
+ */
+describe("Given a query that can return a movie", () => {
+  it("Return a movie", async () => {
+    Movie.findByPk = jest.fn().mockReturnValue(mockMovie);
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        query MyMovie {
+          movie(id: "1") {
+            id
+            title
+          }
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty("data.movie.title", "The Matrix");
+  });
+  it("Throws a GraphQLError", async () => {
+    Movie.findByPk = jest.fn().mockRejectedValue(new Error("error"));
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          query MyMovie {
+            movie(id: "1") {
+              id
+              title
+            }
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError");
+    }
+  });
+});
+
 describe("Given a query that can return a list of movies", () => {
   it("Returns a list of every movies", async () => {
     Movie.findAndCountAll = jest
@@ -85,6 +198,34 @@ describe("Given a query that can return a list of movies", () => {
     expect(movies).toHaveProperty("data.movies[0].title", "The Matrix");
     expect(movies).toHaveProperty("data.movies[0].ageRating.abbreviation", "G");
     expect(movies).toHaveProperty("data.movies[0].genres[0].name", "Action");
+  });
+  it("Throws a GraphQLError for the query", async () => {
+    Movie.findAndCountAll = jest.fn().mockRejectedValue(new Error("error"));
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          query MyMovies {
+            movies {
+              id
+              title
+              slug
+              durationInMinutes
+              posterImageUrl
+              synopsis
+              ageRating {
+                name
+                abbreviation
+              }
+              genres {
+                name
+              }
+            }
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError");
+    }
   });
   it("Create and return a new movie", async () => {
     Actor.findByPk = jest.fn().mockReturnValue({ id: "1" });
@@ -180,7 +321,7 @@ describe("Given a query that can return a list of movies", () => {
         `),
       });
     } catch (error: any) {
-      expect(typeof error).toEqual("GraphQLError")
+      expect(typeof error).toEqual("GraphQLError");
     }
   });
 });

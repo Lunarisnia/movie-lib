@@ -2,6 +2,7 @@ import { Op } from "sequelize";
 import Genre from "../../db/models/genre.model";
 import fetchAllGenres from "./fetchAllGenres";
 
+// TODO: add includeRelations
 export default async (
   ids: string[]
 ): Promise<{

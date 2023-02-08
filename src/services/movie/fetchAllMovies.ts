@@ -4,23 +4,35 @@ import AgeRating from "../../db/models/ageRating.model";
 import Actor from "../../db/models/actor.model";
 import Gender from "../../db/models/gender.model";
 import Author from "../../db/models/author.model";
+import { FindAndCountOptions } from "sequelize";
+import generateQuery from "../utils/generateQuery";
 
-export default async (): Promise<{
+export const movieRelationOptions = {
+  include: [
+    AgeRating,
+    Genre,
+    {
+      model: Actor,
+      include: [Gender],
+    },
+    {
+      model: Author,
+      include: [Gender],
+    },
+  ],
+};
+
+export default async (
+  query: FindAndCountOptions,
+  includeRelation?: boolean
+): Promise<{
   rows: Movie[];
   count: number;
 }> => {
-  return await Movie.findAndCountAll({
-    include: [
-      AgeRating,
-      Genre,
-      {
-        model: Actor,
-        include: [Gender],
-      },
-      {
-        model: Author,
-        include: [Gender],
-      },
-    ],
-  });
+  const finalQuery = generateQuery(
+    query,
+    movieRelationOptions,
+    includeRelation
+  );
+  return await Movie.findAndCountAll(finalQuery);
 };

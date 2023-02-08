@@ -1,5 +1,16 @@
 export default /* GraphQL */ `
-  type Movie {
+  interface IMovie {
+    id: ID!
+    title: String
+    slug: String
+    durationInMinutes: Int
+    posterImageUrl: String
+    releaseDate: Date
+    synopsis: String
+    rating: Float
+  }
+
+  type Movie implements IMovie {
     id: ID!
     title: String
     slug: String
@@ -18,7 +29,7 @@ export default /* GraphQL */ `
     id: ID!
   }
 
-  input MovieInput {
+  input AddMovieInput {
     title: String!
     durationInMinutes: Int!
     posterImageUrl: String!
@@ -31,10 +42,23 @@ export default /* GraphQL */ `
     authors: [InputID!]!
   }
 
+  input UpdateMovieInput {
+    title: String
+    rating: Float
+    durationInMinutes: Int
+    posterImageUrl: String
+    synopsis: String
+    releaseDate: Date
+    ageRating: InputID
+  }
+
   type Query {
-    movies: [Movie]!
+    movie(id: ID!): Movie
+    movies: [Movie]
   }
   type Mutation {
-    addMovie(params: MovieInput): Movie
+    addMovie(params: AddMovieInput): Movie
+    updateMovie(id: ID!, update: UpdateMovieInput!): Movie
+    deleteMovie(id: ID!): String
   }
 `;
