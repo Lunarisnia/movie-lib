@@ -49,8 +49,10 @@ app.listen(PORT, async () => {
  *  - Update Movie (Done)
  *  - Delete Movie (Done)
  *  - Unit Test (DONE)
- *  - addActorToMovie
- *  - addAuthorToMovie
+ *  - addActorToMovie (DONE)
+ *  - removeActorFromMovie (DONE)
+ *  - addAuthorToMovie (DONE)
+ *  - removeAuthorFromMovie (DONE)
  *  - Documentation
  * Author:
  *  - Fetch All Author (DONE)
@@ -69,10 +71,6 @@ app.listen(PORT, async () => {
  *  - Unit Test (DONE)
  *  - Documentation
  */
+//--------- NEXT == PREPARE DB ON A CLOUD SOMEWHERE, AWS/GCP
 
-// Todo: Finish the CRUD of every table important table (Movie, Author, Actor)
-// Todo: Currently detailed read is only available for Movie, make it available everywhere
-// Todo: Crud for those 3 schema
 // Todo: write documentation for the api
-// Todo: Add pagination
-// Todo: Do unit tests

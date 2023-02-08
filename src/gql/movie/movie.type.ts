@@ -60,5 +60,9 @@ export default /* GraphQL */ `
     addMovie(params: AddMovieInput): Movie
     updateMovie(id: ID!, update: UpdateMovieInput!): Movie
     deleteMovie(id: ID!): String
+    addActorToMovie(movieId: ID!, actorId: ID!): Movie
+    removeActorFromMovie(movieId: ID!, actorId: ID!): String
+    addAuthorToMovie(movieId: ID!, authorId: ID!): Movie
+    removeAuthorFromMovie(movieId: ID!, authorId: ID!): String
   }
 `;

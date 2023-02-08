@@ -54,6 +54,142 @@ const mockMovie = {
   updatedAt: new Date(),
 };
 
+describe("Given a query that can add and actor/author to a movie", () => {
+  it("Add an AUTHOR successfully then return the movie", async () => {
+    MovieAuthor.findOne = jest.fn().mockReturnValue({ id: "1" });
+    MovieAuthor.create = jest.fn().mockReturnValue({ id: "1" });
+    Movie.findByPk = jest.fn().mockReturnValue(mockMovie);
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        mutation MyDeletedMovie {
+          addAuthorToMovie(movieId: "1", authorId: "1") {
+            id
+            title
+          }
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty("data.addAuthorToMovie.title", "The Matrix");
+  });
+  it("Add an AUTHOR failed then throw a GraphQLError", async () => {
+    MovieAuthor.findOne = jest.fn().mockRejectedValue(new Error("AA"));
+    MovieAuthor.create = jest.fn().mockReturnValue({ id: "1" });
+    Movie.findByPk = jest.fn().mockReturnValue(mockMovie);
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          mutation MyDeletedMovie {
+            addAuthorToMovie(movieId: "1", authorId: "1") {
+              id
+              title
+            }
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError")
+    }
+  });
+  it("Add an ACTOR successfully then return the movie", async () => {
+    MovieActor.findOne = jest.fn().mockReturnValue({ id: "1" });
+    MovieActor.create = jest.fn().mockReturnValue({ id: "1" });
+    Movie.findByPk = jest.fn().mockReturnValue(mockMovie);
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        mutation MyDeletedMovie {
+          addActorToMovie(movieId: "1", actorId: "1") {
+            id
+            title
+          }
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty("data.addActorToMovie.title", "The Matrix");
+  });
+  it("Add an ACTOR failed then throw a GraphQLError", async () => {
+    MovieActor.findOne = jest.fn().mockRejectedValue(new Error("AA"));
+    MovieActor.create = jest.fn().mockReturnValue({ id: "1" });
+    Movie.findByPk = jest.fn().mockReturnValue(mockMovie);
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          mutation MyDeletedMovie {
+            addActorToMovie(movieId: "1", actorId: "1") {
+              id
+              title
+            }
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError")
+    }
+  });
+});
+
+describe("Given a query that can delete an actor/author from a movie", () => {
+  it("Deletes an author and Return the deletion result", async () => {
+    MovieAuthor.destroy = jest.fn().mockReturnValue(1);
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        mutation MyDeletedMovie {
+          removeAuthorFromMovie(movieId: "1", authorId: "1")
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty(
+      "data.removeAuthorFromMovie",
+      "Success. Amount of data affected: 1"
+    );
+  });
+  it("Deletes an actor and Return the deletion result", async () => {
+    MovieActor.destroy = jest.fn().mockReturnValue(1);
+    const movie = await executor({
+      document: parse(/* GraphQL */ `
+        mutation MyDeletedMovie {
+          removeActorFromMovie(movieId: "1", actorId: "1")
+        }
+      `),
+    });
+
+    expect(movie).toHaveProperty(
+      "data.removeActorFromMovie",
+      "Success. Amount of data affected: 1"
+    );
+  });
+  it("Handle the error for actor", async () => {
+    MovieActor.destroy = jest.fn().mockRejectedValue(new Error("Internal"));
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          mutation MyDeletedMovie {
+            removeActorFromMovie(movieId: "1", actorId: "1")
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError");
+    }
+  });
+  it("Handle the error for author", async () => {
+    MovieAuthor.destroy = jest.fn().mockRejectedValue(new Error("Internal"));
+    try {
+      await executor({
+        document: parse(/* GraphQL */ `
+          mutation MyDeletedMovie {
+            removeAuthorFromMovie(movieId: "1", authorId: "1")
+          }
+        `),
+      });
+    } catch (error: any) {
+      expect(error.name).toEqual("GraphQLError");
+    }
+  });
+});
+
 describe("Given a query that can delete a movie", () => {
   it("Return the deletion result", async () => {
     Movie.destroy = jest.fn().mockReturnValue(1);
