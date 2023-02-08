@@ -129,5 +129,5 @@ export default async ({
   }));
   await MovieAuthor.bulkCreate(movieAuthors);
 
-  return await fetchMovie(movie.id);
+  return await fetchMovie(movie.id, true);
 };

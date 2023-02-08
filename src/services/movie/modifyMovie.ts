@@ -34,5 +34,5 @@ export default async (movieId: string, options: ModifyMovieOptions) => {
     },
   });
   if (affected[0] < 1) throw new InternalError("Update failed.");
-  return await fetchMovie(movieId);
+  return await fetchMovie(movieId, true);
 };

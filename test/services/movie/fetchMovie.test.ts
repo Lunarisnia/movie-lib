@@ -24,7 +24,7 @@ describe("Given a function that return a movie", () => {
   const mockReturn = mockMovie.id === mockInput ? mockMovie : null;
   it("Returns the movie successfully", async () => {
     Movie.findByPk = jest.fn().mockReturnValue(mockReturn);
-    const movie = await fetchMovie(mockInput);
+    const movie = await fetchMovie(mockInput, true);
     expect(movie).toBeTruthy();
     expect(movie?.title).toEqual("The Matrix");
   });
