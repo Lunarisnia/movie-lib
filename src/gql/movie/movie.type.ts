@@ -1,5 +1,16 @@
 export default /* GraphQL */ `
-  type Movie {
+  interface IMovie {
+    id: ID!
+    title: String
+    slug: String
+    durationInMinutes: Int
+    posterImageUrl: String
+    releaseDate: Date
+    synopsis: String
+    rating: Float
+  }
+
+  type Movie implements IMovie {
     id: ID!
     title: String
     slug: String

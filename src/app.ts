@@ -46,20 +46,23 @@ app.listen(PORT, async () => {
  *  - Fetch All movie (Done) > Maybe add search by param x
  *  - Add Movie (Done)
  *  - Fetch One Movie (Done)
- *  - Update Movie
- *  - Delete Movie
+ *  - Update Movie (Done)
+ *  - Delete Movie (Done)
+ *  - Unit Test (DONE)
  * Author:
- *  - Fetch All Author
- *  - Add Author
- *  - Fetch One Author
- *  - Update Author
- *  - Delete Author
+ *  - Fetch All Author (DONE)
+ *  - Fetch One Author (DONE)
+ *  - Add Author (DONE)
+ *  - Update Author (DONE)
+ *  - Delete Author (DONE)
+ *  - Unit Test
  * Actor:
  *  - Fetch All Actor
  *  - Add Actor
  *  - Fetch One Actor
  *  - Update Actor
  *  - Delete Actor
+ *  - Unit Test
  */
 
 // Todo: Finish the CRUD of every table important table (Movie, Author, Actor)

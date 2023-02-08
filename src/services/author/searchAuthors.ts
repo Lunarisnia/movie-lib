@@ -1,4 +1,4 @@
-import Author from "@/db/models/author.model";
+import Author from "../../db/models/author.model";
 import { Op } from "sequelize";
 import fetchAllAuthors from "./fetchAllAuthors";
 
