@@ -53,7 +53,7 @@ app.listen(PORT, async () => {
  *  - removeActorFromMovie (DONE)
  *  - addAuthorToMovie (DONE)
  *  - removeAuthorFromMovie (DONE)
- *  - Documentation
+ *  - Documentation (DONE)
  * Author:
  *  - Fetch All Author (DONE)
  *  - Fetch One Author (DONE)
@@ -61,7 +61,7 @@ app.listen(PORT, async () => {
  *  - Update Author (DONE)
  *  - Delete Author (DONE)
  *  - Unit Test (DONE)
- *  - Documentation
+ *  - Documentation (DONE)
  * Actor:
  *  - Fetch All Actor (DONE)
  *  - Add Actor (DONE)
@@ -69,8 +69,6 @@ app.listen(PORT, async () => {
  *  - Update Actor (DONE)
  *  - Delete Actor (DONE)
  *  - Unit Test (DONE)
- *  - Documentation
+ *  - Documentation (DONE)
  */
 //--------- NEXT == PREPARE DB ON A CLOUD SOMEWHERE, AWS/GCP
-
-// Todo: write documentation for the api

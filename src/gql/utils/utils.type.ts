@@ -7,6 +7,9 @@ export default /* GraphQL */ `
   }
 
   type Query {
+    """
+    Simply greet you.
+    """
     welcome: WelcomeMessage
   }
 `;
